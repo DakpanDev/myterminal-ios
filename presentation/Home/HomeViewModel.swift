@@ -12,9 +12,7 @@ final class HomeViewModel {
     
     private var _uiState: TypedUIState<FlightListUIModel>
     var uiState: TypedUIState<FlightListUIModel> {
-        get {
-            return _uiState
-        }
+        get { return _uiState }
     }
     
     init() {
@@ -25,7 +23,57 @@ final class HomeViewModel {
         // TODO: implement
         Task {
             sleep(3)
-            self._uiState = .normal(data: FlightListUIModel(flights: []))
+            let flights = getDummyFlights()
+            _uiState = .normal(data: FlightListUIModel(flights: flights))
         }
+    }
+    
+    func onDateChange(date: Date) {
+        // TODO: implement
+    }
+    
+    func onSearch(query: String) {
+        switch _uiState {
+        case .normal(let data):
+            let updatedWithQuery = data.flights.map { flight in
+                var newFlight = flight.copy(isQueried: compliesWithQuery(query: query, flight: flight))
+                return newFlight
+            }
+            let newUiModel = FlightListUIModel(flights: updatedWithQuery)
+            _uiState = .normal(data: newUiModel)
+        default: break
+        }
+    }
+    
+    func onRetry() {
+        // TODO: implement
+    }
+    
+    func onFlightClicked(flightId: String) {
+        // TODO: implement
+    }
+    
+    func onLoadMore() {
+        // TODO: implement
+    }
+    
+    private func compliesWithQuery(query: String, flight: FlightUIModel) -> Bool {
+        let upperQuery = query.uppercased()
+        let name = flight.name.uppercased()
+        let destination = flight.destination.uppercased()
+        return upperQuery.isEmpty || name.contains(upperQuery) || destination.contains(upperQuery)
+    }
+    
+    private func getDummyFlights() -> [FlightUIModel] {
+        return [
+            FlightUIModel(id: "1", name: "HV6935", destination: "Tirana", date: Date.now, isQueried: true),
+            FlightUIModel(id: "2", name: "HV5685", destination: "Lanzarote", date: Date.now, isQueried: true),
+            FlightUIModel(id: "3", name: "HV6673", destination: "Tenerife", date: Date.now, isQueried: true),
+            FlightUIModel(id: "4", name: "DL7505", destination: "Tenerife", date: Date.now, isQueried: true),
+            FlightUIModel(id: "5", name: "HV6935", destination: "Tirana", date: Date.now, isQueried: true),
+            FlightUIModel(id: "6", name: "HV5685", destination: "Lanzarote", date: Date.now, isQueried: true),
+            FlightUIModel(id: "7", name: "HV6673", destination: "Tenerife", date: Date.now, isQueried: true),
+            FlightUIModel(id: "8", name: "DL7505", destination: "Tenerife", date: Date.now, isQueried: true),
+        ]
     }
 }

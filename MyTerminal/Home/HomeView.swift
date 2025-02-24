@@ -11,45 +11,100 @@ struct HomeView: View {
     @Environment(HomeViewModel.self) private var viewModel
     
     var body: some View {
-        HomeViewContent(uiState: viewModel.uiState)
-            .onAppear {
-                viewModel.observeFlightsByDay(day: Date.now)
-            }
+        HomeViewContent(
+            uiState: viewModel.uiState,
+            onDateChange: viewModel.onDateChange,
+            onQueryChange: viewModel.onSearch,
+            onRetry: viewModel.onRetry,
+            onFlightClick:  viewModel.onFlightClicked,
+            onLoadMore: viewModel.onLoadMore
+        )
+        .onAppear {
+            viewModel.observeFlightsByDay(day: Date.now)
+        }
     }
 }
 
 private struct HomeViewContent: View {
     var uiState: TypedUIState<FlightListUIModel>
+    var onDateChange: (Date) -> Void
+    var onQueryChange: (String) -> Void
+    var onRetry: () -> Void
+    var onFlightClick: (String) -> Void
+    var onLoadMore: () -> Void
+    
+    @State var searchQuery = ""
 
     var body: some View {
-        
         NavigationStack {
-            VStack {
-                switch uiState {
-                case .loading:
-                    Text("Loading")
-                case .normal:
-                    Text("Normal")
-                case .error:
-                    Text("Error")
+            ScrollView {
+                VStack {
+                    SearchBar(value: $searchQuery, onChange: onQueryChange)
+                        .padding(.vertical, Spacing.x2)
+                    switch uiState {
+                    case .loading:
+                        LoadingState()
+                    case .error:
+                        ErrorState(
+                            text: "An error has occurred while retrieving departures",
+                            onRetry: onRetry
+                        )
+                    case .normal(let data):
+                        FlightList(
+                            flights: data.flights,
+                            onFlightClick: onFlightClick
+                        )
+                    }
+                    Spacer()
+                    // TODO: Loadmore spinner
                 }
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarLeading) {
+                        Text("Departing Flights")
+                            .font(.largeTitle)
+                    }
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        Image(systemName: "calendar")
+                    }
+                }
+                .padding()
             }
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Text("Departing Flights")
-                        .font(.largeTitle)
-                }
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Image(systemName: "calendar")
-                }
+        }
+    }
+}
+
+private struct FlightList: View {
+    var flights: [FlightUIModel]
+    var onFlightClick: (String) -> Void
+    
+    var body: some View {
+        VStack(spacing: Spacing.x3) {
+            ForEach(flights) { flight in
+                FlightListItem(uiModel: flight)
+                    .onTapGesture { onFlightClick(flight.id) }
             }
-            .padding()
         }
     }
 }
 
 #Preview {
-    let uiState: TypedUIState<FlightListUIModel> = .loading
+    let uiState: TypedUIState<FlightListUIModel> = .normal(
+        data: FlightListUIModel(
+            flights: [
+                FlightUIModel(id: "1", name: "HV6935", destination: "Tirana", date: Date.now, isQueried: true),
+                FlightUIModel(id: "2", name: "HV5685", destination: "Lanzarote", date: Date.now, isQueried: true),
+                FlightUIModel(id: "3", name: "HV6673", destination: "Tenerife", date: Date.now, isQueried: true),
+                FlightUIModel(id: "4", name: "DL7505", destination: "Tenerife", date: Date.now, isQueried: true),
+            ]
+        )
+    )
     
-    HomeViewContent(uiState: uiState)
+    HomeViewContent(
+        uiState: uiState,
+        onDateChange: { _ in },
+        onQueryChange: { _ in },
+        onRetry: {},
+        onFlightClick: { _ in },
+        onLoadMore: {}
+    )
 }

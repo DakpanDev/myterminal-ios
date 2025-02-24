@@ -7,10 +7,20 @@
 
 import Foundation
 
-struct FlightUIModel {
+struct FlightUIModel: Identifiable {
     let id: String
     let name: String
     let destination: String
     let date: Date
-    let isQueried = true
+    let isQueried: Bool
+    
+    func copy(id: String? = nil, name: String? = nil, destination: String? = nil, date: Date? = nil, isQueried: Bool? = nil) -> FlightUIModel {
+        return FlightUIModel(
+            id: id ?? self.id,
+            name: name ?? self.name,
+            destination: destination ?? self.destination,
+            date: date ?? self.date,
+            isQueried: isQueried ?? self.isQueried
+        )
+    }
 }
