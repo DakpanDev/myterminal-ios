@@ -24,39 +24,43 @@ final class HomeViewModel {
         Task {
             sleep(3)
             let flights = getDummyFlights()
-            _uiState = .normal(data: FlightListUIModel(flights: flights))
+            _uiState = .normal(data: FlightListUIModel(flights: flights, selectedDate: day))
         }
     }
     
     func onDateChange(date: Date) {
-        // TODO: implement
+        _uiState = .loading
+        observeFlightsByDay(day: date)
     }
     
     func onSearch(query: String) {
         switch _uiState {
         case .normal(let data):
             let updatedWithQuery = data.flights.map { flight in
-                var newFlight = flight.copy(isQueried: compliesWithQuery(query: query, flight: flight))
+                let newFlight = flight.copy(isQueried: compliesWithQuery(query: query, flight: flight))
                 return newFlight
             }
-            let newUiModel = FlightListUIModel(flights: updatedWithQuery)
+            let newUiModel = FlightListUIModel(flights: updatedWithQuery, selectedDate: data.selectedDate)
             _uiState = .normal(data: newUiModel)
         default: break
         }
     }
-    
+
     func onRetry() {
-        // TODO: implement
+        let date = _uiState.normalDataOrNil()?.selectedDate
+        if (date == nil) { return }
+        _uiState = .loading
+        observeFlightsByDay(day: date!)
     }
-    
+
     func onFlightClicked(flightId: String) {
         // TODO: implement
     }
-    
+
     func onLoadMore() {
         // TODO: implement
     }
-    
+
     private func compliesWithQuery(query: String, flight: FlightUIModel) -> Bool {
         let upperQuery = query.uppercased()
         let name = flight.name.uppercased()

@@ -9,7 +9,7 @@ import SwiftUI
 
 struct HomeView: View {
     @Environment(HomeViewModel.self) private var viewModel
-    
+
     var body: some View {
         HomeViewContent(
             uiState: viewModel.uiState,
@@ -32,7 +32,7 @@ private struct HomeViewContent: View {
     var onRetry: () -> Void
     var onFlightClick: (String) -> Void
     var onLoadMore: () -> Void
-    
+
     @State var searchQuery = ""
 
     var body: some View {
@@ -41,6 +41,7 @@ private struct HomeViewContent: View {
                 VStack {
                     SearchBar(value: $searchQuery, onChange: onQueryChange)
                         .padding(.vertical, Spacing.x2)
+
                     switch uiState {
                     case .loading:
                         LoadingState()
@@ -55,8 +56,9 @@ private struct HomeViewContent: View {
                             onFlightClick: onFlightClick
                         )
                     }
-                    Spacer()
+
                     // TODO: Loadmore spinner
+                    Spacer()
                 }
                 .toolbar {
                     ToolbarItem(placement: .navigationBarLeading) {
@@ -80,8 +82,13 @@ private struct FlightList: View {
     var body: some View {
         VStack(spacing: Spacing.x3) {
             ForEach(flights) { flight in
-                FlightListItem(uiModel: flight)
-                    .onTapGesture { onFlightClick(flight.id) }
+                NavigationLink(value: flight) {
+                    FlightListItem(uiModel: flight)
+                }
+                .foregroundStyle(.black)
+            }
+            .navigationDestination(for: FlightUIModel.self) { flight in
+                FlightDetailsView(flightId: flight.id)
             }
         }
     }

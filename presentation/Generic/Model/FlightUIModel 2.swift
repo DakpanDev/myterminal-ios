@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct FlightUIModel: Identifiable {
+struct FlightUIModel: Identifiable, Hashable {
     let id: String
     let name: String
     let destination: String
