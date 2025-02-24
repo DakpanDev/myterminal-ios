@@ -38,9 +38,22 @@
 		62ED35382D662989003E8157 /* libPresentation.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPresentation.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		62F1FEA32D6CC64200DC2251 /* Exceptions for "MyTerminal" folder in "Presentation" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Generic/Util/Extension/TypedUIStateExtension.swift,
+			);
+			target = 62ED35372D662989003E8157 /* Presentation */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		62ED34D72D65F6E7003E8157 /* MyTerminal */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				62F1FEA32D6CC64200DC2251 /* Exceptions for "MyTerminal" folder in "Presentation" target */,
+			);
 			path = MyTerminal;
 			sourceTree = "<group>";
 		};

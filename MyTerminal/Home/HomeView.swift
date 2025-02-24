@@ -16,7 +16,6 @@ struct HomeView: View {
             onDateChange: viewModel.onDateChange,
             onQueryChange: viewModel.onSearch,
             onRetry: viewModel.onRetry,
-            onFlightClick:  viewModel.onFlightClicked,
             onLoadMore: viewModel.onLoadMore
         )
         .onAppear {
@@ -30,7 +29,6 @@ private struct HomeViewContent: View {
     var onDateChange: (Date) -> Void
     var onQueryChange: (String) -> Void
     var onRetry: () -> Void
-    var onFlightClick: (String) -> Void
     var onLoadMore: () -> Void
 
     @State var searchQuery = ""
@@ -51,10 +49,7 @@ private struct HomeViewContent: View {
                             onRetry: onRetry
                         )
                     case .normal(let data):
-                        FlightList(
-                            flights: data.flights,
-                            onFlightClick: onFlightClick
-                        )
+                        FlightList(flights: data.flights)
                     }
 
                     // TODO: Loadmore spinner
@@ -77,13 +72,13 @@ private struct HomeViewContent: View {
 
 private struct FlightList: View {
     var flights: [FlightUIModel]
-    var onFlightClick: (String) -> Void
     
     var body: some View {
-        VStack(spacing: Spacing.x3) {
+        VStack {
             ForEach(flights) { flight in
                 NavigationLink(value: flight) {
                     FlightListItem(uiModel: flight)
+                        .padding(.bottom, Spacing.x2)
                 }
                 .foregroundStyle(.black)
             }
@@ -111,7 +106,6 @@ private struct FlightList: View {
         onDateChange: { _ in },
         onQueryChange: { _ in },
         onRetry: {},
-        onFlightClick: { _ in },
         onLoadMore: {}
     )
 }

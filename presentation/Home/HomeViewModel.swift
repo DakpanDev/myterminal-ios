@@ -22,7 +22,7 @@ final class HomeViewModel {
     func observeFlightsByDay(day: Date) {
         // TODO: implement
         Task {
-            sleep(3)
+            sleep(1)
             let flights = getDummyFlights()
             _uiState = .normal(data: FlightListUIModel(flights: flights, selectedDate: day))
         }
@@ -53,10 +53,6 @@ final class HomeViewModel {
         observeFlightsByDay(day: date!)
     }
 
-    func onFlightClicked(flightId: String) {
-        // TODO: implement
-    }
-
     func onLoadMore() {
         // TODO: implement
     }
@@ -74,10 +70,6 @@ final class HomeViewModel {
             FlightUIModel(id: "2", name: "HV5685", destination: "Lanzarote", date: Date.now, isQueried: true),
             FlightUIModel(id: "3", name: "HV6673", destination: "Tenerife", date: Date.now, isQueried: true),
             FlightUIModel(id: "4", name: "DL7505", destination: "Tenerife", date: Date.now, isQueried: true),
-            FlightUIModel(id: "5", name: "HV6935", destination: "Tirana", date: Date.now, isQueried: true),
-            FlightUIModel(id: "6", name: "HV5685", destination: "Lanzarote", date: Date.now, isQueried: true),
-            FlightUIModel(id: "7", name: "HV6673", destination: "Tenerife", date: Date.now, isQueried: true),
-            FlightUIModel(id: "8", name: "DL7505", destination: "Tenerife", date: Date.now, isQueried: true),
         ]
     }
 }
