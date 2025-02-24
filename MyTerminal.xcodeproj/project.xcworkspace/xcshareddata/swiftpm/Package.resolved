@@ -1,0 +1,60 @@
+{
+  "originHash" : "b73bfc9efc066e1c1c6e5c60167e670b74d33a8b478b9f93ae18e769c2696599",
+  "pins" : [
+    {
+      "identity" : "alamofire",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Alamofire/Alamofire",
+      "state" : {
+        "revision" : "513364f870f6bfc468f9d2ff0a95caccc10044c5",
+        "version" : "5.10.2"
+      }
+    },
+    {
+      "identity" : "m2extensions",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/move-ios/M2Extensions",
+      "state" : {
+        "revision" : "ea4458bcc631c74d22c08d981cd9c9e2b4f1b76b",
+        "version" : "5.0.2"
+      }
+    },
+    {
+      "identity" : "m2webstack",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/move-ios/M2Webstack",
+      "state" : {
+        "revision" : "e1958010f542046957aae72b8c7854f6e4285f55",
+        "version" : "9.0.1"
+      }
+    },
+    {
+      "identity" : "promisekit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/mxcl/PromiseKit",
+      "state" : {
+        "revision" : "2bc44395edb4f8391902a9ff7c220471882a4d07",
+        "version" : "8.2.0"
+      }
+    },
+    {
+      "identity" : "purelayout",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/PureLayout/PureLayout",
+      "state" : {
+        "revision" : "5561683c96dc49b023c1299bfe4f6fbeed5f8199",
+        "version" : "3.1.9"
+      }
+    },
+    {
+      "identity" : "stylekit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/move-ios/StyleKit",
+      "state" : {
+        "revision" : "75932771fb2d1c700c7880a17ede89838ffee9a8",
+        "version" : "12.3.5"
+      }
+    }
+  ],
+  "version" : 3
+}

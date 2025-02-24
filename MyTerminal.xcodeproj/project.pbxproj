@@ -6,14 +6,11 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		62ED35132D6622B2003E8157 /* M2Extensions in Frameworks */ = {isa = PBXBuildFile; productRef = 62ED35122D6622B2003E8157 /* M2Extensions */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
-		62ED34E82D65F6E9003E8157 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 62ED34CD2D65F6E7003E8157 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 62ED34D42D65F6E7003E8157;
-			remoteInfo = MyTerminal;
-		};
 		62ED34F22D65F6E9003E8157 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 62ED34CD2D65F6E7003E8157 /* Project object */;
@@ -23,10 +20,22 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		62ED35362D662989003E8157 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		62ED34D52D65F6E7003E8157 /* MyTerminal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyTerminal.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		62ED34E72D65F6E9003E8157 /* MyTerminalTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyTerminalTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		62ED34F12D65F6E9003E8157 /* MyTerminalUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyTerminalUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		62ED35382D662989003E8157 /* libPresentation.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPresentation.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -35,14 +44,14 @@
 			path = MyTerminal;
 			sourceTree = "<group>";
 		};
-		62ED34EA2D65F6E9003E8157 /* MyTerminalTests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = MyTerminalTests;
-			sourceTree = "<group>";
-		};
 		62ED34F42D65F6E9003E8157 /* MyTerminalUITests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = MyTerminalUITests;
+			sourceTree = "<group>";
+		};
+		62ED35392D662989003E8157 /* Presentation */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Presentation;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -52,17 +61,18 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				62ED35132D6622B2003E8157 /* M2Extensions in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		62ED34E42D65F6E9003E8157 /* Frameworks */ = {
+		62ED34EE2D65F6E9003E8157 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		62ED34EE2D65F6E9003E8157 /* Frameworks */ = {
+		62ED35352D662989003E8157 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -76,8 +86,8 @@
 			isa = PBXGroup;
 			children = (
 				62ED34D72D65F6E7003E8157 /* MyTerminal */,
-				62ED34EA2D65F6E9003E8157 /* MyTerminalTests */,
 				62ED34F42D65F6E9003E8157 /* MyTerminalUITests */,
+				62ED35392D662989003E8157 /* Presentation */,
 				62ED34D62D65F6E7003E8157 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -86,8 +96,8 @@
 			isa = PBXGroup;
 			children = (
 				62ED34D52D65F6E7003E8157 /* MyTerminal.app */,
-				62ED34E72D65F6E9003E8157 /* MyTerminalTests.xctest */,
 				62ED34F12D65F6E9003E8157 /* MyTerminalUITests.xctest */,
+				62ED35382D662989003E8157 /* libPresentation.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -109,36 +119,15 @@
 			);
 			fileSystemSynchronizedGroups = (
 				62ED34D72D65F6E7003E8157 /* MyTerminal */,
+				62ED35392D662989003E8157 /* Presentation */,
 			);
 			name = MyTerminal;
 			packageProductDependencies = (
+				62ED35122D6622B2003E8157 /* M2Extensions */,
 			);
 			productName = MyTerminal;
 			productReference = 62ED34D52D65F6E7003E8157 /* MyTerminal.app */;
 			productType = "com.apple.product-type.application";
-		};
-		62ED34E62D65F6E9003E8157 /* MyTerminalTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 62ED34FE2D65F6E9003E8157 /* Build configuration list for PBXNativeTarget "MyTerminalTests" */;
-			buildPhases = (
-				62ED34E32D65F6E9003E8157 /* Sources */,
-				62ED34E42D65F6E9003E8157 /* Frameworks */,
-				62ED34E52D65F6E9003E8157 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				62ED34E92D65F6E9003E8157 /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				62ED34EA2D65F6E9003E8157 /* MyTerminalTests */,
-			);
-			name = MyTerminalTests;
-			packageProductDependencies = (
-			);
-			productName = MyTerminalTests;
-			productReference = 62ED34E72D65F6E9003E8157 /* MyTerminalTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		62ED34F02D65F6E9003E8157 /* MyTerminalUITests */ = {
 			isa = PBXNativeTarget;
@@ -163,6 +152,28 @@
 			productReference = 62ED34F12D65F6E9003E8157 /* MyTerminalUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		62ED35372D662989003E8157 /* Presentation */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 62ED353C2D662989003E8157 /* Build configuration list for PBXNativeTarget "Presentation" */;
+			buildPhases = (
+				62ED35342D662989003E8157 /* Sources */,
+				62ED35352D662989003E8157 /* Frameworks */,
+				62ED35362D662989003E8157 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				62ED35392D662989003E8157 /* Presentation */,
+			);
+			name = Presentation;
+			packageProductDependencies = (
+			);
+			productName = Presentation;
+			productReference = 62ED35382D662989003E8157 /* libPresentation.a */;
+			productType = "com.apple.product-type.library.static";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -176,13 +187,13 @@
 					62ED34D42D65F6E7003E8157 = {
 						CreatedOnToolsVersion = 16.2;
 					};
-					62ED34E62D65F6E9003E8157 = {
-						CreatedOnToolsVersion = 16.2;
-						TestTargetID = 62ED34D42D65F6E7003E8157;
-					};
 					62ED34F02D65F6E9003E8157 = {
 						CreatedOnToolsVersion = 16.2;
 						TestTargetID = 62ED34D42D65F6E7003E8157;
+					};
+					62ED35372D662989003E8157 = {
+						CreatedOnToolsVersion = 16.2;
+						LastSwiftMigration = 1620;
 					};
 				};
 			};
@@ -195,27 +206,25 @@
 			);
 			mainGroup = 62ED34CC2D65F6E7003E8157;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				62ED350F2D662244003E8157 /* XCRemoteSwiftPackageReference "StyleKit" */,
+				62ED35102D66228C003E8157 /* XCRemoteSwiftPackageReference "M2Webstack" */,
+				62ED35112D6622B2003E8157 /* XCRemoteSwiftPackageReference "M2Extensions" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 62ED34D62D65F6E7003E8157 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
 				62ED34D42D65F6E7003E8157 /* MyTerminal */,
-				62ED34E62D65F6E9003E8157 /* MyTerminalTests */,
 				62ED34F02D65F6E9003E8157 /* MyTerminalUITests */,
+				62ED35372D662989003E8157 /* Presentation */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		62ED34D32D65F6E7003E8157 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		62ED34E52D65F6E9003E8157 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -239,14 +248,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		62ED34E32D65F6E9003E8157 /* Sources */ = {
+		62ED34ED2D65F6E9003E8157 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		62ED34ED2D65F6E9003E8157 /* Sources */ = {
+		62ED35342D662989003E8157 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -256,11 +265,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		62ED34E92D65F6E9003E8157 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 62ED34D42D65F6E7003E8157 /* MyTerminal */;
-			targetProxy = 62ED34E82D65F6E9003E8157 /* PBXContainerItemProxy */;
-		};
 		62ED34F32D65F6E9003E8157 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 62ED34D42D65F6E7003E8157 /* MyTerminal */;
@@ -321,7 +325,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -378,7 +382,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -446,44 +450,6 @@
 			};
 			name = Release;
 		};
-		62ED34FF2D65F6E9003E8157 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = Q6MFDLR9MG;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.moveagency.MyTerminalTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MyTerminal.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MyTerminal";
-			};
-			name = Debug;
-		};
-		62ED35002D65F6E9003E8157 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = Q6MFDLR9MG;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.moveagency.MyTerminalTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MyTerminal.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MyTerminal";
-			};
-			name = Release;
-		};
 		62ED35022D65F6E9003E8157 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -518,6 +484,35 @@
 			};
 			name = Release;
 		};
+		62ED353D2D662989003E8157 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = Q6MFDLR9MG;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		62ED353E2D662989003E8157 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = Q6MFDLR9MG;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -539,15 +534,6 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		62ED34FE2D65F6E9003E8157 /* Build configuration list for PBXNativeTarget "MyTerminalTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				62ED34FF2D65F6E9003E8157 /* Debug */,
-				62ED35002D65F6E9003E8157 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		62ED35012D65F6E9003E8157 /* Build configuration list for PBXNativeTarget "MyTerminalUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -557,7 +543,51 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		62ED353C2D662989003E8157 /* Build configuration list for PBXNativeTarget "Presentation" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				62ED353D2D662989003E8157 /* Debug */,
+				62ED353E2D662989003E8157 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		62ED350F2D662244003E8157 /* XCRemoteSwiftPackageReference "StyleKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/move-ios/StyleKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 12.3.5;
+			};
+		};
+		62ED35102D66228C003E8157 /* XCRemoteSwiftPackageReference "M2Webstack" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/move-ios/M2Webstack";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 9.0.1;
+			};
+		};
+		62ED35112D6622B2003E8157 /* XCRemoteSwiftPackageReference "M2Extensions" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/move-ios/M2Extensions";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		62ED35122D6622B2003E8157 /* M2Extensions */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 62ED35112D6622B2003E8157 /* XCRemoteSwiftPackageReference "M2Extensions" */;
+			productName = M2Extensions;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 62ED34CD2D65F6E7003E8157 /* Project object */;
 }
