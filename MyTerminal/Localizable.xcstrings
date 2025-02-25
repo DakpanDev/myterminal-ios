@@ -26,6 +26,9 @@
         }
       }
     },
+    "details_actual_departureui" : {
+
+    },
     "details_boarding_time" : {
       "extractionState" : "manual",
       "localizations" : {

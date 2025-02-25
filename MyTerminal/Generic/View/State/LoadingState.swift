@@ -11,7 +11,7 @@ struct LoadingState: View {
     var body: some View {
         ZStack {
             ProgressView()
-                .scaleEffect(2)
+                .controlSize(.large)
         }
     }
 }

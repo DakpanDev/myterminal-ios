@@ -57,6 +57,9 @@ private struct NormalContent: View {
     var uiModel: DetailsUIModel
     
     var body: some View {
+        let lastUpdatedDate = uiModel.lastUpdated.toDateString()
+        let lastUpdatedTime = uiModel.lastUpdated.toTimeString()
+        
         VStack {
             GeneralDetails(
                 flightName: uiModel.name,
@@ -64,6 +67,25 @@ private struct NormalContent: View {
                 states: uiModel.states,
                 departureDate: uiModel.departureDateTime
             )
+            .padding(.top, Spacing.x1)
+            .padding(.bottom, Spacing.x3)
+            LocationDetails(
+                terminal: uiModel.terminal,
+                checkInRows: uiModel.checkinRows,
+                gate: uiModel.gate
+            )
+            .padding(.bottom, Spacing.x3)
+            TimeDetails(
+                checkInClose: uiModel.checkinClosingTime,
+                gateOpening: uiModel.gateOpeningTime,
+                boardingTime: uiModel.boardingTime,
+                actualDeparture: uiModel.actualDepartureTime
+            )
+            .padding(.horizontal, Spacing.x3)
+            .padding(.bottom, Spacing.x3)
+            Divider()
+            Text("details_last_updated:\(lastUpdatedDate):\(lastUpdatedTime)")
+                .multilineTextAlignment(.center)
         }
     }
 }
