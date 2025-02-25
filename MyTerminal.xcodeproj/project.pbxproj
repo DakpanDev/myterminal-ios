@@ -21,6 +21,24 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		628837192D6DF1D9007F14AC /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		628837242D6DF21B007F14AC /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		62ED35362D662989003E8157 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -33,6 +51,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		6288371B2D6DF1D9007F14AC /* libDomain.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libDomain.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		628837262D6DF21B007F14AC /* libData.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libData.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		62ED34D52D65F6E7003E8157 /* MyTerminal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyTerminal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		62ED34F12D65F6E9003E8157 /* MyTerminalUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyTerminalUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		62ED35382D662989003E8157 /* libPresentation.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPresentation.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -51,6 +71,16 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		6288371C2D6DF1D9007F14AC /* Domain */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Domain;
+			sourceTree = "<group>";
+		};
+		628837272D6DF21B007F14AC /* Data */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Data;
+			sourceTree = "<group>";
+		};
 		62ED34D72D65F6E7003E8157 /* MyTerminal */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
@@ -72,6 +102,20 @@
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		628837182D6DF1D9007F14AC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		628837232D6DF21B007F14AC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		62ED34D22D65F6E7003E8157 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -103,6 +147,8 @@
 				62ED34D72D65F6E7003E8157 /* MyTerminal */,
 				62ED34F42D65F6E9003E8157 /* MyTerminalUITests */,
 				62ED35392D662989003E8157 /* Presentation */,
+				6288371C2D6DF1D9007F14AC /* Domain */,
+				628837272D6DF21B007F14AC /* Data */,
 				62ED34D62D65F6E7003E8157 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -113,6 +159,8 @@
 				62ED34D52D65F6E7003E8157 /* MyTerminal.app */,
 				62ED34F12D65F6E9003E8157 /* MyTerminalUITests.xctest */,
 				62ED35382D662989003E8157 /* libPresentation.a */,
+				6288371B2D6DF1D9007F14AC /* libDomain.a */,
+				628837262D6DF21B007F14AC /* libData.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -120,6 +168,51 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		6288371A2D6DF1D9007F14AC /* Domain */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6288371F2D6DF1D9007F14AC /* Build configuration list for PBXNativeTarget "Domain" */;
+			buildPhases = (
+				628837172D6DF1D9007F14AC /* Sources */,
+				628837182D6DF1D9007F14AC /* Frameworks */,
+				628837192D6DF1D9007F14AC /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				6288371C2D6DF1D9007F14AC /* Domain */,
+			);
+			name = Domain;
+			packageProductDependencies = (
+			);
+			productName = Domain;
+			productReference = 6288371B2D6DF1D9007F14AC /* libDomain.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		628837252D6DF21B007F14AC /* Data */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6288372A2D6DF21B007F14AC /* Build configuration list for PBXNativeTarget "Data" */;
+			buildPhases = (
+				628837222D6DF21B007F14AC /* Sources */,
+				628837232D6DF21B007F14AC /* Frameworks */,
+				628837242D6DF21B007F14AC /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				6288371C2D6DF1D9007F14AC /* Domain */,
+				628837272D6DF21B007F14AC /* Data */,
+			);
+			name = Data;
+			packageProductDependencies = (
+			);
+			productName = Data;
+			productReference = 628837262D6DF21B007F14AC /* libData.a */;
+			productType = "com.apple.product-type.library.static";
+		};
 		62ED34D42D65F6E7003E8157 /* MyTerminal */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 62ED34FB2D65F6E9003E8157 /* Build configuration list for PBXNativeTarget "MyTerminal" */;
@@ -180,6 +273,7 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
+				6288371C2D6DF1D9007F14AC /* Domain */,
 				62ED35392D662989003E8157 /* Presentation */,
 			);
 			name = Presentation;
@@ -199,6 +293,12 @@
 				LastSwiftUpdateCheck = 1620;
 				LastUpgradeCheck = 1620;
 				TargetAttributes = {
+					6288371A2D6DF1D9007F14AC = {
+						CreatedOnToolsVersion = 16.2;
+					};
+					628837252D6DF21B007F14AC = {
+						CreatedOnToolsVersion = 16.2;
+					};
 					62ED34D42D65F6E7003E8157 = {
 						CreatedOnToolsVersion = 16.2;
 					};
@@ -234,6 +334,8 @@
 				62ED34D42D65F6E7003E8157 /* MyTerminal */,
 				62ED34F02D65F6E9003E8157 /* MyTerminalUITests */,
 				62ED35372D662989003E8157 /* Presentation */,
+				6288371A2D6DF1D9007F14AC /* Domain */,
+				628837252D6DF21B007F14AC /* Data */,
 			);
 		};
 /* End PBXProject section */
@@ -256,6 +358,20 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		628837172D6DF1D9007F14AC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		628837222D6DF21B007F14AC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		62ED34D12D65F6E7003E8157 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -288,6 +404,62 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		628837202D6DF1D9007F14AC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = Q6MFDLR9MG;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		628837212D6DF1D9007F14AC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = Q6MFDLR9MG;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		6288372B2D6DF21B007F14AC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = Q6MFDLR9MG;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		6288372C2D6DF21B007F14AC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = Q6MFDLR9MG;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		62ED34F92D65F6E9003E8157 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -533,6 +705,24 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		6288371F2D6DF1D9007F14AC /* Build configuration list for PBXNativeTarget "Domain" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				628837202D6DF1D9007F14AC /* Debug */,
+				628837212D6DF1D9007F14AC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6288372A2D6DF21B007F14AC /* Build configuration list for PBXNativeTarget "Data" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6288372B2D6DF21B007F14AC /* Debug */,
+				6288372C2D6DF21B007F14AC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		62ED34D02D65F6E7003E8157 /* Build configuration list for PBXProject "MyTerminal" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
