@@ -13,7 +13,7 @@ struct SearchBar: View {
     
     var body: some View {
         TextField(text: $value) {
-            Text("Search by destination or flight name")
+            Text("search_placeholder")
         }
         .textFieldStyle(.plain)
         .autocorrectionDisabled()

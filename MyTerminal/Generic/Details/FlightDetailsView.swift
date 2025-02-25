@@ -19,8 +19,7 @@ struct FlightDetailsView: View {
         ScrollView {
             DetailsViewContent(
                 uiState: viewModel.uiState,
-                onRetry: viewModel.onRetry,
-                onBackPress: { /* TODO: implement */ }
+                onRetry: viewModel.onRetry
             )
             .padding(.top, Spacing.x2)
         }
@@ -38,7 +37,6 @@ struct FlightDetailsView: View {
 struct DetailsViewContent: View {
     var uiState: TypedUIState<DetailsUIModel>
     var onRetry: () -> Void
-    var onBackPress: () -> Void
 
     var body: some View {
         switch uiState {
@@ -47,7 +45,6 @@ struct DetailsViewContent: View {
                 text: "An error has occurred while retrieving flight details",
                 onRetry: onRetry
             )
-            .frame(width: .infinity)
         case .loading:
             LoadingState()
         case .normal(let data):
@@ -60,11 +57,38 @@ private struct NormalContent: View {
     var uiModel: DetailsUIModel
     
     var body: some View {
-        VStack {}
+        VStack {
+            GeneralDetails(
+                flightName: uiModel.name,
+                destination: uiModel.destination,
+                states: uiModel.states,
+                departureDate: uiModel.departureDateTime
+            )
+        }
     }
 }
 
 #Preview {
-    let flightId = "flight_id"
-    FlightDetailsView(flightId: flightId)
+    let uiState: TypedUIState<DetailsUIModel> = .normal(
+        data: DetailsUIModel(
+            id: "flight_id",
+            name: "HV6935",
+            destination: "Tirana",
+            states: [.boarding, .scheduled],
+            departureDateTime: Date.now,
+            terminal: 3,
+            checkinRows: ["5", "6"],
+            gate: "8B",
+            checkinClosingTime: Date.now,
+            gateOpeningTime: nil,
+            boardingTime: Date.now,
+            actualDepartureTime: Date.now,
+            lastUpdated: Date.now,
+            isBookmarked: false
+        )
+    )
+    DetailsViewContent(
+        uiState: uiState,
+        onRetry: {}
+    )
 }

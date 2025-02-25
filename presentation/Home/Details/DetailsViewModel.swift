@@ -35,8 +35,10 @@ final class DetailsViewModel {
         if let data = _uiState.normalDataOrNil() {
             if (data.isBookmarked) {
                 // TODO: unBookmarkFlight(data.id)
+                print("Unbookmark \(data.id)")
             } else {
                 // TODO: bookmarkFlight(data.id)
+                print("Bookmark \(data.id)")
             }
         }
     }

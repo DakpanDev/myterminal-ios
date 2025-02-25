@@ -45,7 +45,7 @@ private struct HomeViewContent: View {
                         LoadingState()
                     case .error:
                         ErrorState(
-                            text: "An error has occurred while retrieving departures",
+                            text: "retrieve_departures_error",
                             onRetry: onRetry
                         )
                     case .normal(let data):
@@ -57,7 +57,7 @@ private struct HomeViewContent: View {
                 }
                 .toolbar {
                     ToolbarItem(placement: .navigationBarLeading) {
-                        Text("Departing Flights")
+                        Text("home_title")
                             .font(.largeTitle)
                     }
                     ToolbarItem(placement: .navigationBarTrailing) {
