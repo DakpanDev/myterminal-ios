@@ -28,7 +28,7 @@ struct TimeDetails: View {
                 time: boardingTime
             )
             TimeRow(
-                title: String(localized: "details_actual_departureui"),
+                title: String(localized: "details_actual_departure"),
                 time: actualDeparture
             )
         }

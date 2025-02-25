@@ -17,9 +17,10 @@ final class HomeViewModel {
     
     init() {
         self._uiState = .loading
+        observeFlightsByDay(day: .now)
     }
     
-    func observeFlightsByDay(day: Date) {
+    private func observeFlightsByDay(day: Date) {
         // TODO: implement
         Task {
             sleep(1)

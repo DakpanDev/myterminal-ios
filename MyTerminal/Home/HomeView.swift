@@ -18,9 +18,6 @@ struct HomeView: View {
             onRetry: viewModel.onRetry,
             onLoadMore: viewModel.onLoadMore
         )
-        .onAppear {
-            viewModel.observeFlightsByDay(day: Date.now)
-        }
     }
 }
 
