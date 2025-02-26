@@ -59,6 +59,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		6245F1EF2D6F4A01007F71D7 /* Exceptions for "Data" folder in "Data" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Database/Database.xcdatamodeld,
+			);
+			target = 628837252D6DF21B007F14AC /* Data */;
+		};
 		62F1FEA32D6CC64200DC2251 /* Exceptions for "MyTerminal" folder in "Presentation" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
@@ -78,6 +85,9 @@
 		};
 		628837272D6DF21B007F14AC /* Data */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				6245F1EF2D6F4A01007F71D7 /* Exceptions for "Data" folder in "Data" target */,
+			);
 			path = Data;
 			sourceTree = "<group>";
 		};
@@ -226,6 +236,8 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
+				6288371C2D6DF1D9007F14AC /* Domain */,
+				628837272D6DF21B007F14AC /* Data */,
 				62ED34D72D65F6E7003E8157 /* MyTerminal */,
 				62ED35392D662989003E8157 /* Presentation */,
 			);
@@ -295,6 +307,7 @@
 				TargetAttributes = {
 					6288371A2D6DF1D9007F14AC = {
 						CreatedOnToolsVersion = 16.2;
+						LastSwiftMigration = 1620;
 					};
 					628837252D6DF21B007F14AC = {
 						CreatedOnToolsVersion = 16.2;
@@ -407,12 +420,15 @@
 		628837202D6DF1D9007F14AC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Q6MFDLR9MG;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "Domain/Details/Domain-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -421,12 +437,14 @@
 		628837212D6DF1D9007F14AC /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Q6MFDLR9MG;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "Domain/Details/Domain-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

@@ -1,0 +1,92 @@
+//
+//  FlightsRepositoryImpl.swift
+//  Data
+//
+//  Created by Mitchell Tol on 25/02/2025.
+//
+
+import Foundation
+
+final class FlightsRepositoryImpl: FlightsRepository {
+    static let shared = FlightsRepositoryImpl()
+    
+    private let flightsDatastore: FlightsDatastore
+    
+    init() {
+        self.flightsDatastore = FlightsDatastoreImpl.shared
+    }
+    
+    func fetchFlights(date: Date) {
+        Task {
+            // TODO: implement
+        }
+    }
+    
+    func observeFlights(date: Date) throws -> AsyncStream<[Flight]> {
+        return AsyncStream { continuation in
+            Task {
+                for await cache in flightsDatastore.observeFlights() {
+                    let flights = cache[date] ?? []
+                    if !flights.isEmpty {
+                        continuation.yield(flights)
+                    } else {
+                        fetchFlights(date: date)
+                    }
+                }
+            }
+        }
+    }
+    
+    func observeFlightDetails(_ id: String) throws -> AsyncStream<Flight> {
+        return AsyncStream { continuation in
+            Task {
+                for await cache in flightsDatastore.observeFlights() {
+                    if let flight = cache.values.flatMap({ $0 }).first(where: { $0.id == id }) {
+                        continuation.yield(flight)
+                    }
+                }
+            }
+        }
+    }
+    
+    func observeAllBookmarks() -> AsyncStream<[Flight]> {
+        return flightsDatastore.observeBookmarks()
+    }
+    
+    func observeBookmark(id: String) -> AsyncStream<Flight> {
+        return AsyncStream { continuation in
+            Task {
+                for await flights in flightsDatastore.observeBookmarks() {
+                    if let flight = flights.first(where: { $0.id == id }) {
+                        continuation.yield(flight)
+                    }
+                }
+            }
+        }
+    }
+    
+    func bookmarkFlight(_ id: String) throws {
+        if let flight = flightsDatastore.getFlightDetails(id: id) {
+            setBookmarkState(flight: flight, isBookmarked: true)
+        } else {
+            throw IllegalStateError(message: "Flight with id \(id) could not be found")
+        }
+    }
+    
+    func unBookmarkFlight(_ id: String) throws {
+        if let flight = flightsDatastore.getBookmarkedDetails(id: id) {
+            setBookmarkState(flight: flight, isBookmarked: false)
+        } else {
+            throw IllegalStateError(message: "Bookmarked flight with id \(id) could not be found")
+        }
+    }
+    
+    private func setBookmarkState(flight: Flight, isBookmarked: Bool) {
+        let date = flight.departureDateTime
+        flightsDatastore.unBookmarkFlight(flight: flight)
+        if let cachedFlights = flightsDatastore.getCachedFlightsByDate(date: date) {
+            let updated = cachedFlights.map { $0.id == flight.id ? $0.copy(isBookmarked: isBookmarked) : $0 }
+            flightsDatastore.updateFlights(date: date, flights: updated)
+        }
+    }
+}

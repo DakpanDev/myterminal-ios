@@ -20,7 +20,7 @@ struct LocationDetails: View {
         
         VStack(spacing: Spacing.x1) {
             Divider()
-            HStack(spacing: Spacing.x3) {
+            HStack {
                 Spacer()
                 Text("details_terminal:\(terminalText)")
                     .multilineTextAlignment(.center)
@@ -32,6 +32,7 @@ struct LocationDetails: View {
                     .multilineTextAlignment(.center)
                 Spacer()
             }
+            .padding(.horizontal, Spacing.x3)
             Divider()
         }
     }

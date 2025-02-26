@@ -61,12 +61,16 @@ private struct NormalContent: View {
         let lastUpdatedTime = uiModel.lastUpdated.toTimeString()
         
         VStack {
-            GeneralDetails(
-                flightName: uiModel.name,
-                destination: uiModel.destination,
-                states: uiModel.states,
-                departureDate: uiModel.departureDateTime
-            )
+            HStack {
+                GeneralDetails(
+                    flightName: uiModel.name,
+                    destination: uiModel.destination,
+                    states: uiModel.states,
+                    departureDate: uiModel.departureDateTime
+                )
+                Spacer()
+            }
+            .padding(.horizontal, Spacing.x3)
             .padding(.top, Spacing.x1)
             .padding(.bottom, Spacing.x3)
             LocationDetails(
