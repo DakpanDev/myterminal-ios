@@ -9,8 +9,11 @@ import Foundation
 
 @Observable
 final class DetailsViewModel {
-    
     private let args: DetailsViewModelArgs
+    private let observeFlightDetails: ObserveFlightDetails
+    private let bookmarkFlight: BookmarkFlight
+    private let unBookmarkFlight: UnBookmarkFlight
+    private let mapper: DetailsUIMapper
     
     private var _uiState: TypedUIState<DetailsUIModel>
     var uiState: TypedUIState<DetailsUIModel> {
@@ -20,15 +23,29 @@ final class DetailsViewModel {
     init(args: DetailsViewModelArgs) {
         self.args = args
         _uiState = .loading
+        observeFlightDetails = ObserveFlightDetails()
+        bookmarkFlight = BookmarkFlight()
+        unBookmarkFlight = UnBookmarkFlight()
+        mapper = DetailsUIMapper()
         retrieveDetails()
     }
     
     private func retrieveDetails() {
         Task {
-            sleep(1)
-            let details = getDummyData(flightId: args.flightId)
-            _uiState = .normal(data: details)
+            do {
+                for await details in try observeFlightDetails.execute(args.flightId) {
+                    let mapped = mapper.mapFlightToDetails(flight: details)
+                    _uiState = .normal(data: mapped)
+                }
+            } catch {
+                onRetrieveDetailsError()
+            }
         }
+    }
+    
+    private func onRetrieveDetailsError() {
+        print("An error occurred while retrieving details")
+        _uiState = .error
     }
     
     func onBookmark() {

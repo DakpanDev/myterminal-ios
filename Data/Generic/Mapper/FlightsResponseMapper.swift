@@ -9,11 +9,12 @@ import Foundation
 
 final class FlightsResponseMapper {
     
-    let formatter: DateFormatter
+    let formatter: ISO8601DateFormatter
     
     init() {
-        formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+        //let dateString = "yyyy-MM-dd'T'HH:mm:sss+Z"
+        formatter = ISO8601DateFormatter()
+        formatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
     }
     
     func mapListResponseToDomain(response: FlightListResponse) -> [Flight] {
