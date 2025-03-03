@@ -10,7 +10,7 @@ import Combine
 
 protocol FlightsRepository {
     
-    func fetchFlights(date: Date) async
+    func fetchFlights(date: Date) async throws
     func observeFlights(date: Date) throws -> AsyncStream<[Flight]>
     func observeFlightDetails(_ id: String) throws -> AsyncStream<Flight>
     

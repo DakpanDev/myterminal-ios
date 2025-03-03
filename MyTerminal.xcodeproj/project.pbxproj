@@ -192,6 +192,7 @@
 			);
 			fileSystemSynchronizedGroups = (
 				6288371C2D6DF1D9007F14AC /* Domain */,
+				628837272D6DF21B007F14AC /* Data */,
 			);
 			name = Domain;
 			packageProductDependencies = (

@@ -14,6 +14,14 @@ struct FlightUIModel: Identifiable, Hashable {
     let date: Date
     let isQueried: Bool
     
+    init(id: String, name: String, destination: String, date: Date, isQueried: Bool = true) {
+        self.id = id
+        self.name = name
+        self.destination = destination
+        self.date = date
+        self.isQueried = isQueried
+    }
+    
     func copy(id: String? = nil, name: String? = nil, destination: String? = nil, date: Date? = nil, isQueried: Bool? = nil) -> FlightUIModel {
         return FlightUIModel(
             id: id ?? self.id,

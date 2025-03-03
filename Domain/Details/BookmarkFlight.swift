@@ -11,8 +11,8 @@ final class BookmarkFlight {
     
     private let repository: FlightsRepository
     
-    init(repository: FlightsRepository) {
-        self.repository = repository
+    init() {
+        self.repository = FlightsRepositoryImpl.shared
     }
     
     func execute(id: String) throws {

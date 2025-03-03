@@ -11,14 +11,32 @@ final class FlightsRepositoryImpl: FlightsRepository {
     static let shared = FlightsRepositoryImpl()
     
     private let flightsDatastore: FlightsDatastore
+    private let api: SchipholService
+    private let mapper: FlightsResponseMapper
     
     init() {
         self.flightsDatastore = FlightsDatastoreImpl.shared
+        self.api = SchipholService()
+        self.mapper = FlightsResponseMapper()
     }
     
-    func fetchFlights(date: Date) {
+    func fetchFlights(date: Date) async throws {
         Task {
-            // TODO: implement
+            let nextPage = flightsDatastore.getHighestPage(date: date) ?? 0
+            let response = try await api.retrieveFlights(page: nextPage, date: date)
+            
+            let bookmarked = try getAllBookmarked().map { $0.id }
+            let oldFlights = flightsDatastore.getCachedFlightsByDate(date: date) ?? []
+            let newFlights = mapper.mapListResponseToDomain(response: response).map {
+                $0.copy(
+                    // TODO: destination
+                    isBookmarked: bookmarked.contains($0.id)
+                )
+            }
+            let updatedFlights = oldFlights + newFlights
+            
+            flightsDatastore.updateFlights(date: date, flights: updatedFlights)
+            flightsDatastore.incrementPage(date: date)
         }
     }
     
@@ -30,7 +48,7 @@ final class FlightsRepositoryImpl: FlightsRepository {
                     if !flights.isEmpty {
                         continuation.yield(flights)
                     } else {
-                        fetchFlights(date: date)
+                        try await fetchFlights(date: date)
                     }
                 }
             }
@@ -88,5 +106,9 @@ final class FlightsRepositoryImpl: FlightsRepository {
             let updated = cachedFlights.map { $0.id == flight.id ? $0.copy(isBookmarked: isBookmarked) : $0 }
             flightsDatastore.updateFlights(date: date, flights: updated)
         }
+    }
+    
+    private func getAllBookmarked() throws -> [Flight] {
+        return try flightsDatastore.getAllBookmarked()
     }
 }

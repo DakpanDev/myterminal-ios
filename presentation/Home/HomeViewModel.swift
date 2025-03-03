@@ -9,6 +9,8 @@ import Foundation
 
 @Observable
 final class HomeViewModel {
+    private let observeFlights: ObserveFlights
+    private let mapper: FlightsUIMapper
     
     private var _uiState: TypedUIState<FlightListUIModel>
     var uiState: TypedUIState<FlightListUIModel> {
@@ -16,17 +18,28 @@ final class HomeViewModel {
     }
     
     init() {
-        self._uiState = .loading
+        _uiState = .loading
+        observeFlights = ObserveFlights()
+        mapper = FlightsUIMapper()
         observeFlightsByDay(day: .now)
     }
     
     private func observeFlightsByDay(day: Date) {
-        // TODO: implement
         Task {
-            sleep(1)
-            let flights = getDummyFlights()
-            _uiState = .normal(data: FlightListUIModel(flights: flights, selectedDate: day))
+            do {
+                for await flights in try observeFlights.execute(date: day) {
+                    let uiModel = mapper.mapFlightListToUiModel(flights)
+                    _uiState = .normal(data: uiModel)
+                }
+            } catch {
+                onFetchFlightsError()
+            }
         }
+    }
+    
+    private func onFetchFlightsError() {
+        print("An error occurred while retrieving flights")
+        _uiState = .error
     }
     
     func onDateChange(date: Date) {
@@ -63,14 +76,5 @@ final class HomeViewModel {
         let name = flight.name.uppercased()
         let destination = flight.destination.uppercased()
         return upperQuery.isEmpty || name.contains(upperQuery) || destination.contains(upperQuery)
-    }
-    
-    private func getDummyFlights() -> [FlightUIModel] {
-        return [
-            FlightUIModel(id: "1", name: "HV6935", destination: "Tirana", date: Date.now, isQueried: true),
-            FlightUIModel(id: "2", name: "HV5685", destination: "Lanzarote", date: Date.now, isQueried: true),
-            FlightUIModel(id: "3", name: "HV6673", destination: "Tenerife", date: Date.now, isQueried: true),
-            FlightUIModel(id: "4", name: "DL7505", destination: "Tenerife", date: Date.now, isQueried: true),
-        ]
     }
 }
