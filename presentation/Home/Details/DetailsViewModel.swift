@@ -50,37 +50,24 @@ final class DetailsViewModel {
     
     func onBookmark() {
         if let data = _uiState.normalDataOrNil() {
-            if (data.isBookmarked) {
-                // TODO: unBookmarkFlight(data.id)
-                print("Unbookmark \(data.id)")
-            } else {
-                // TODO: bookmarkFlight(data.id)
-                print("Bookmark \(data.id)")
+            do {
+                if (data.isBookmarked) {
+                    try unBookmarkFlight.execute(id: data.id)
+                } else {
+                    try bookmarkFlight.execute(id: data.id)
+                }
+            } catch {
+                onBookmarkError(isBookmarked: data.isBookmarked)
             }
         }
+    }
+    
+    private func onBookmarkError(isBookmarked: Bool) {
+        print("An error occurred trying to \(isBookmarked ? "un" : "")bookmark flight")
     }
     
     func onRetry() {
         _uiState = .loading
         retrieveDetails()
-    }
-    
-    private func getDummyData(flightId: String) -> DetailsUIModel {
-        return DetailsUIModel(
-            id: flightId,
-            name: "HV6935",
-            destination: "Tirana",
-            states: [.boarding, .scheduled],
-            departureDateTime: Date.now,
-            terminal: 3,
-            checkinRows: ["5", "6"],
-            gate: "8B",
-            checkinClosingTime: Date.now,
-            gateOpeningTime: nil,
-            boardingTime: Date.now,
-            actualDepartureTime: Date.now,
-            lastUpdated: Date.now,
-            isBookmarked: false
-        )
     }
 }

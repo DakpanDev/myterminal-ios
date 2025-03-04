@@ -11,11 +11,13 @@ import SwiftData
 @main
 struct MyTerminalApp: App {
     @State private var homeViewModel = HomeViewModel()
+    @State private var bookmarksViewModel = BookmarksViewModel()
     
     var body: some Scene {
         WindowGroup {
             MainScreen()
                 .environment(homeViewModel)
+                .environment(bookmarksViewModel)
         }
     }
 }

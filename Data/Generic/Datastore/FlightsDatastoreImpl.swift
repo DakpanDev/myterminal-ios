@@ -22,7 +22,7 @@ final class FlightsDatastoreImpl: FlightsDatastore {
     }()
     private let mapper = FlightsEntityMapper()
 
-    private var cachedPages = Dictionary<Date, Int?>()
+    private var cachedPages = Dictionary<String, Int?>()
     
     private var flightChangesContinuation: AsyncStream<FlightsCache>.Continuation?
     private var cachedFlights: FlightsCache = Dictionary() {
@@ -59,7 +59,7 @@ final class FlightsDatastoreImpl: FlightsDatastore {
     }
     
     func updateFlights(date: Date, flights: [Flight]) {
-        cachedFlights[date] = flights
+        cachedFlights[toCacheKey(date)] = flights
     }
     
     func observeFlights() -> AsyncStream<FlightsCache> {
@@ -71,7 +71,7 @@ final class FlightsDatastoreImpl: FlightsDatastore {
     }
     
     func getCachedFlightsByDate(date: Date) -> [Flight]? {
-        return cachedFlights[date]
+        return cachedFlights[toCacheKey(date)]
     }
     
     func getFlightDetails(id: String) -> Flight? {
@@ -109,12 +109,12 @@ final class FlightsDatastoreImpl: FlightsDatastore {
     }
     
     func unBookmarkFlight(flight: Flight) {
-        let entity = mapper.mapFlightToEntity(
-            context: database.viewContext,
-            flight: flight
-        )
+        let request = NSFetchRequest<FlightEntity>(entityName: "FlightEntity")
+        request.predicate = NSPredicate(format: "id LIKE %@", flight.id)
         do {
-            database.viewContext.delete(entity)
+            for entity in try database.viewContext.fetch(request) {
+                database.viewContext.delete(entity)
+            }
             try database.viewContext.save()
             cachedBookmarks = try getAllBookmarked()
         } catch {
@@ -123,7 +123,7 @@ final class FlightsDatastoreImpl: FlightsDatastore {
     }
     
     func getHighestPage(date: Date) -> Int? {
-        return cachedPages[date] ?? nil
+        return cachedPages[toCacheKey(date)] ?? nil
     }
     
     func incrementPage(date: Date) {
@@ -133,10 +133,16 @@ final class FlightsDatastoreImpl: FlightsDatastore {
             0
         }
         
-        cachedPages[date] = nextValue
+        cachedPages[toCacheKey(date)] = nextValue
     }
     
     private func allCachedFlights() -> [Flight] {
         return cachedFlights.values.flatMap { $0 }
+    }
+    
+    private func toCacheKey(_ date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        return formatter.string(from: date)
     }
 }

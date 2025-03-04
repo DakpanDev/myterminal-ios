@@ -7,4 +7,4 @@
 
 import Foundation
 
-typealias FlightsCache = Dictionary<Date, [Flight]>
+typealias FlightsCache = Dictionary<String, [Flight]>

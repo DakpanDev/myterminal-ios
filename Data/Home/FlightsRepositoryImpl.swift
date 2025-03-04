@@ -44,7 +44,11 @@ final class FlightsRepositoryImpl: FlightsRepository {
         return AsyncStream { continuation in
             Task {
                 for await cache in flightsDatastore.observeFlights() {
-                    let flights = cache[date] ?? []
+                    let formatter = DateFormatter()
+                    formatter.dateFormat = "yyyy-MM-dd"
+                    let key = formatter.string(from: date)
+                    
+                    let flights = cache[key] ?? []
                     if !flights.isEmpty {
                         continuation.yield(flights)
                     } else {
@@ -101,7 +105,11 @@ final class FlightsRepositoryImpl: FlightsRepository {
     
     private func setBookmarkState(flight: Flight, isBookmarked: Bool) {
         let date = flight.departureDateTime
-        flightsDatastore.unBookmarkFlight(flight: flight)
+        if (isBookmarked) {
+            flightsDatastore.bookmarkFlight(flight: flight)
+        } else {
+            flightsDatastore.unBookmarkFlight(flight: flight)
+        }
         if let cachedFlights = flightsDatastore.getCachedFlightsByDate(date: date) {
             let updated = cachedFlights.map { $0.id == flight.id ? $0.copy(isBookmarked: isBookmarked) : $0 }
             flightsDatastore.updateFlights(date: date, flights: updated)

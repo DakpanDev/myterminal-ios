@@ -15,9 +15,6 @@ final class FlightsEntityMapper {
               let name = entity.name,
               let destination = entity.destination,
               let departureDateTime = entity.departureDateTime,
-              let gate = entity.gate,
-              let gateOpeningTime = entity.gateOpeningTime,
-              let actualDepartureTime = entity.actualDepartureTime,
               let lastUpdated = entity.lastUpdated else {
             return nil
         }
@@ -34,11 +31,11 @@ final class FlightsEntityMapper {
             departureDateTime: departureDateTime,
             terminal: terminal,
             checkinRows: checkinRows,
-            gate: gate,
+            gate: entity.gate,
             checkinClosingTime: entity.checkinClosingTime,
-            gateOpeningTime: gateOpeningTime,
+            gateOpeningTime: entity.gateOpeningTime,
             boardingTime: entity.boardingTime,
-            actualDeparturetime: actualDepartureTime,
+            actualDeparturetime: entity.actualDepartureTime,
             lastUpdated: lastUpdated,
             isBookmarked: true
         )
