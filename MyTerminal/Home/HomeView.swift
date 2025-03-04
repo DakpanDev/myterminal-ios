@@ -28,7 +28,8 @@ private struct HomeViewContent: View {
     var onRetry: () -> Void
     var onLoadMore: () -> Void
 
-    @State var searchQuery = ""
+    @State private var selectedDate = Date()
+    @State private var searchQuery = ""
 
     var body: some View {
         NavigationStack {
@@ -55,10 +56,13 @@ private struct HomeViewContent: View {
                 .toolbar {
                     ToolbarItem(placement: .navigationBarLeading) {
                         Text("home_title")
-                            .font(.largeTitle)
+                            .font(.title)
                     }
                     ToolbarItem(placement: .navigationBarTrailing) {
-                        Image(systemName: "calendar")
+                        DatePicker(selection: $selectedDate, displayedComponents: [.date]) {}
+                        .onChange(of: selectedDate) {
+                            onDateChange(selectedDate)
+                        }
                     }
                 }
                 .padding()

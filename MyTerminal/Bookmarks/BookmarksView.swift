@@ -38,7 +38,7 @@ private struct BookmarksContent: View {
                 .toolbar {
                     ToolbarItem(placement: .navigationBarLeading) {
                         Text("bookmarks_title")
-                            .font(.largeTitle)
+                            .font(.title)
                     }
                 }
                 .padding(.horizontal, Spacing.x3)
