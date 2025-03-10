@@ -10,15 +10,12 @@ import Foundation
 struct FlightListUIModel {
     let flights: [FlightUIModel]
     let selectedDate: Date
-    let newFlightsLoading: Bool
     
     init(
         flights: [FlightUIModel],
-        selectedDate: Date = Date.now,
-        newFlightsLoading: Bool = false
+        selectedDate: Date = Date.now
     ) {
         self.flights = flights
         self.selectedDate = selectedDate
-        self.newFlightsLoading = newFlightsLoading
     }
 }

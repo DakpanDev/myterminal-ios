@@ -22,7 +22,11 @@ final class FlightsRepositoryImpl: FlightsRepository {
     
     func fetchFlights(date: Date) async throws {
         Task {
-            let nextPage = flightsDatastore.getHighestPage(date: date) ?? 0
+            let nextPage = if let highest = flightsDatastore.getHighestPage(date: date) {
+                highest + 1
+            } else {
+                0
+            }
             let response = try await api.retrieveFlights(page: nextPage, date: date)
             
             let bookmarked = try getAllBookmarked().map { $0.id }

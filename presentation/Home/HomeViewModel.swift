@@ -10,6 +10,7 @@ import Foundation
 @Observable
 final class HomeViewModel {
     private let observeFlights: ObserveFlights
+    private let fetchMoreFlights: FetchMoreFlights
     private let mapper: FlightsUIMapper
     
     private var _uiState: TypedUIState<FlightListUIModel>
@@ -20,6 +21,7 @@ final class HomeViewModel {
     init() {
         _uiState = .loading
         observeFlights = ObserveFlights()
+        fetchMoreFlights = FetchMoreFlights()
         mapper = FlightsUIMapper()
         observeFlightsByDay(day: .now)
     }
@@ -68,7 +70,20 @@ final class HomeViewModel {
     }
 
     func onLoadMore() {
-        // TODO: implement
+        Task {
+            do {
+                if let data = _uiState.normalDataOrNil() {
+                    let date = data.flights.first?.date ?? Date.now
+                    try fetchMoreFlights.execute(date: date)
+                }
+            } catch {
+                onFetchMoreFlightsError()
+            }
+        }
+    }
+    
+    func onFetchMoreFlightsError() {
+        print("An error occurred while fetching more flights")
     }
 
     private func compliesWithQuery(query: String, flight: FlightUIModel) -> Bool {

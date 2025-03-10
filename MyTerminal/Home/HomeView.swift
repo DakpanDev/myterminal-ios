@@ -47,10 +47,11 @@ private struct HomeViewContent: View {
                             onRetry: onRetry
                         )
                     case .normal(let data):
-                        FlightList(flights: data.flights)
+                        FlightList(
+                            flights: data.flights,
+                            onLoadMore: onLoadMore
+                        )
                     }
-
-                    // TODO: Loadmore spinner
                     Spacer()
                 }
                 .toolbar {
@@ -73,9 +74,10 @@ private struct HomeViewContent: View {
 
 private struct FlightList: View {
     var flights: [FlightUIModel]
+    var onLoadMore: () -> Void
     
     var body: some View {
-        VStack {
+        LazyVStack {
             ForEach(flights) { flight in
                 NavigationLink(value: flight) {
                     FlightListItem(uiModel: flight)
@@ -83,9 +85,11 @@ private struct FlightList: View {
                 }
                 .foregroundStyle(.primary)
             }
-            .navigationDestination(for: FlightUIModel.self) { flight in
-                FlightDetailsView(flightId: flight.id)
-            }
+            LoadingState()
+                .onAppear(perform: onLoadMore)
+        }
+        .navigationDestination(for: FlightUIModel.self) { flight in
+            FlightDetailsView(flightId: flight.id)
         }
     }
 }
