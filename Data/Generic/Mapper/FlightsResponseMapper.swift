@@ -12,7 +12,6 @@ final class FlightsResponseMapper {
     let formatter: ISO8601DateFormatter
     
     init() {
-        //let dateString = "yyyy-MM-dd'T'HH:mm:sss+Z"
         formatter = ISO8601DateFormatter()
         formatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
     }

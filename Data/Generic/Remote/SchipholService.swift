@@ -32,13 +32,25 @@ class SchipholService {
         }
     }
     
+    func retrieveDestination(iata: String) async throws -> DestinationResponse {
+        if let response = try await makeRequest(
+            url: SchipholService.DestinationsUrl,
+            responseType: DestinationResponse.self,
+            pathSegments: [iata]
+        ) {
+            return response
+        } else {
+            throw IllegalStateError(message: "An error occurred while fetching destination with IATA \(iata)")
+        }
+    }
+    
     private func makeRequest<T: Decodable>(
         url: String,
         responseType: T.Type,
         pathSegments: [String] = [],
         queryParams: Dictionary<String, String> = Dictionary()
     ) async throws -> T? {
-        let builtUrl: String = url + pathSegments.flatMap { $0 }
+        let builtUrl: String = url + pathSegments.flatMap { "/\($0)" }
         guard var components = URLComponents(string: builtUrl) else {
             return nil
         }

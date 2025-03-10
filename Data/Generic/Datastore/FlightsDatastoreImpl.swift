@@ -11,15 +11,7 @@ import CoreData
 final class FlightsDatastoreImpl: FlightsDatastore {
     static let shared = FlightsDatastoreImpl()
 
-    private lazy var database: NSPersistentContainer = {
-        let container = NSPersistentContainer(name: "Database")
-        container.loadPersistentStores { _, error in
-            if let error {
-                fatalError("Failed to load persistent stores: \(error.localizedDescription)")
-            }
-        }
-        return container
-    }()
+    private let database = MyTerminalDB.shared
     private let mapper = FlightsEntityMapper()
 
     private var cachedPages = Dictionary<String, Int?>()
@@ -49,7 +41,7 @@ final class FlightsDatastoreImpl: FlightsDatastore {
     init() {
         do {
             let request = NSFetchRequest<FlightEntity>(entityName: "FlightEntity")
-            let bookmarks = try database.viewContext.fetch(request)
+            let bookmarks = try database.fetch(request)
                 .map(mapper.mapEntityToFlight)
                 .compactMap { $0 }
             cachedBookmarks = bookmarks
@@ -88,7 +80,7 @@ final class FlightsDatastoreImpl: FlightsDatastore {
     
     func getAllBookmarked() throws -> [Flight] {
         let request = NSFetchRequest<FlightEntity>(entityName: "FlightEntity")
-        let bookmarks = try database.viewContext.fetch(request)
+        let bookmarks = try database.fetch(request)
             .map(mapper.mapEntityToFlight)
             .compactMap { $0 }
         return bookmarks
@@ -96,12 +88,11 @@ final class FlightsDatastoreImpl: FlightsDatastore {
     
     func bookmarkFlight(flight: Flight) {
         let entity = mapper.mapFlightToEntity(
-            context: database.viewContext,
+            context: database.getContext(),
             flight: flight
         )
         do {
-            database.viewContext.insert(entity)
-            try database.viewContext.save()
+            try database.insertAndSave(entity)
             cachedBookmarks = try getAllBookmarked()
         } catch {
             print("Could not bookmark flight")
@@ -112,10 +103,10 @@ final class FlightsDatastoreImpl: FlightsDatastore {
         let request = NSFetchRequest<FlightEntity>(entityName: "FlightEntity")
         request.predicate = NSPredicate(format: "id LIKE %@", flight.id)
         do {
-            for entity in try database.viewContext.fetch(request) {
-                database.viewContext.delete(entity)
+            for entity in try database.fetch(request) {
+                database.delete(entity)
             }
-            try database.viewContext.save()
+            try database.save()
             var newCache = try getAllBookmarked()
             newCache.append(flight.copy(isBookmarked: false))
             cachedBookmarks = newCache

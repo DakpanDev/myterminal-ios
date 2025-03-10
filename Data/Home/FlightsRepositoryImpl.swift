@@ -11,11 +11,13 @@ final class FlightsRepositoryImpl: FlightsRepository {
     static let shared = FlightsRepositoryImpl()
     
     private let flightsDatastore: FlightsDatastore
+    private let destinationsDatastore: DestinationsDataStore
     private let api: SchipholService
     private let mapper: FlightsResponseMapper
     
     init() {
         self.flightsDatastore = FlightsDatastoreImpl.shared
+        self.destinationsDatastore = DestinationDataStoreImpl.shared
         self.api = SchipholService()
         self.mapper = FlightsResponseMapper()
     }
@@ -31,12 +33,10 @@ final class FlightsRepositoryImpl: FlightsRepository {
             
             let bookmarked = try getAllBookmarked().map { $0.id }
             let oldFlights = flightsDatastore.getCachedFlightsByDate(date: date) ?? []
-            let newFlights = mapper.mapListResponseToDomain(response: response).map {
-                $0.copy(
-                    // TODO: destination
-                    isBookmarked: bookmarked.contains($0.id)
-                )
-            }
+            let newFlights = await updateNewFlights(
+                flights: mapper.mapListResponseToDomain(response: response),
+                bookmarked: bookmarked
+            )
             let updatedFlights = oldFlights + newFlights
             
             flightsDatastore.updateFlights(date: date, flights: updatedFlights)
@@ -122,5 +122,46 @@ final class FlightsRepositoryImpl: FlightsRepository {
     
     private func getAllBookmarked() throws -> [Flight] {
         return try flightsDatastore.getAllBookmarked()
+    }
+    
+    private func updateNewFlights(flights: [Flight], bookmarked: [String]) async -> [Flight] {
+        var newFlights: [Flight] = []
+        for flight in flights {
+            newFlights.append(
+                flight.copy(
+                    destination: await getDestination(iata: flight.destination),
+                    isBookmarked: bookmarked.contains(flight.id)
+                )
+            )
+        }
+        return newFlights
+    }
+    
+    private func getDestination(iata: String) async -> String {
+        if let storedDestination = destinationsDatastore.getDestinationValue(iata: iata) {
+            return storedDestination
+        }
+        
+        let destination: String = await {
+            do {
+                let response = try await api.retrieveDestination(iata: iata)
+                if let city = response.city {
+                    return city
+                } else if let publicName = response.publicName?.english {
+                    return publicName
+                } else if let country = response.country {
+                    return country
+                } else {
+                    return iata
+                }
+            } catch {
+                print("An error occurred while fetching \(iata)")
+                return iata
+            }
+        }()
+        
+        destinationsDatastore.storeDestination(iata: iata, value: destination)
+        
+        return destination
     }
 }
