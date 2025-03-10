@@ -116,7 +116,9 @@ final class FlightsDatastoreImpl: FlightsDatastore {
                 database.viewContext.delete(entity)
             }
             try database.viewContext.save()
-            cachedBookmarks = try getAllBookmarked()
+            var newCache = try getAllBookmarked()
+            newCache.append(flight.copy(isBookmarked: false))
+            cachedBookmarks = newCache
         } catch {
             print("Could not unbookmark flight")
         }

@@ -12,13 +12,15 @@ struct BookmarksView: View {
     
     var body: some View {
         BookmarksContent(
-            uiModel: viewModel.uiModel
+            uiModel: viewModel.uiModel,
+            onResume: viewModel.onResume
         )
     }
 }
 
 private struct BookmarksContent: View {
     var uiModel: BookmarksUIModel
+    var onResume: () -> Void
     
     var body: some View {
         NavigationStack {
@@ -29,10 +31,10 @@ private struct BookmarksContent: View {
                             FlightListItem(uiModel: flight)
                                 .padding(.bottom, Spacing.x2)
                         }
-                        .foregroundStyle(.black)
+                        .foregroundStyle(.primary)
                     }
                     .navigationDestination(for: FlightUIModel.self) { flight in
-                        FlightDetailsView(flightId: flight.id)
+                        BookmarkDetailsView(flightId: flight.id)
                     }
                 }
                 .toolbar {
@@ -44,6 +46,7 @@ private struct BookmarksContent: View {
                 .padding(.horizontal, Spacing.x3)
                 .padding(.bottom, Spacing.x2)
             }
+            .onAppear(perform: onResume)
         }
     }
 }
@@ -58,5 +61,5 @@ private struct BookmarksContent: View {
         ]
     )
     
-    BookmarksContent(uiModel: uiModel)
+    BookmarksContent(uiModel: uiModel, onResume: {})
 }

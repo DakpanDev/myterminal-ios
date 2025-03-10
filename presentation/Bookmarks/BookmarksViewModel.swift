@@ -26,9 +26,15 @@ final class BookmarksViewModel {
     private func retrieveBookmarks() {
         Task {
             for await flightList in observeAllBookmarks.execute() {
-                let mapped = flightList.map(mapper.mapFlightToUiModel)
+                let mapped = flightList
+                    .filter { $0.isBookmarked }
+                    .map(mapper.mapFlightToUiModel)
                 _uiModel = BookmarksUIModel(flights: mapped)
             }
         }
+    }
+    
+    func onResume() {
+        retrieveBookmarks()
     }
 }

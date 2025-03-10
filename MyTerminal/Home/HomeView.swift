@@ -81,7 +81,7 @@ private struct FlightList: View {
                     FlightListItem(uiModel: flight)
                         .padding(.bottom, Spacing.x2)
                 }
-                .foregroundStyle(.black)
+                .foregroundStyle(.primary)
             }
             .navigationDestination(for: FlightUIModel.self) { flight in
                 FlightDetailsView(flightId: flight.id)

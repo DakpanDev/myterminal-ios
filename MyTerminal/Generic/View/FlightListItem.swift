@@ -23,7 +23,7 @@ struct FlightListItem: View {
             .padding()
             .overlay(
                 RoundedRectangle(cornerRadius: Spacing.x0_5)
-                    .stroke(.black)
+                    .stroke(.primary)
             )
         }
     }
