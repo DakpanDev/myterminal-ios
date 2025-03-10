@@ -14,7 +14,7 @@ struct HomeView: View {
         HomeViewContent(
             uiState: viewModel.uiState,
             onDateChange: viewModel.onDateChange,
-            onQueryChange: viewModel.onSearch,
+            onQueryChange: viewModel.onQueryChange,
             onRetry: viewModel.onRetry,
             onLoadMore: viewModel.onLoadMore
         )
@@ -29,14 +29,20 @@ private struct HomeViewContent: View {
     var onLoadMore: () -> Void
 
     @State private var selectedDate = Date()
-    @State private var searchQuery = ""
+    
+    private var query: Binding<String> {
+        Binding(
+            get: { uiState.normalDataOrNil()?.searchQuery ?? "" },
+            set: { onQueryChange($0) }
+        )
+    }
 
     var body: some View {
         NavigationStack {
             ScrollView {
                 VStack {
-                    SearchBar(value: $searchQuery, onChange: onQueryChange)
-                        .padding(.vertical, Spacing.x2)
+                    SearchBar(value: query)
+                    .padding(.vertical, Spacing.x2)
 
                     switch uiState {
                     case .loading:
@@ -49,6 +55,7 @@ private struct HomeViewContent: View {
                     case .normal(let data):
                         FlightList(
                             flights: data.flights,
+                            showLoadMore: query.wrappedValue.isEmpty,
                             onLoadMore: onLoadMore
                         )
                     }
@@ -74,6 +81,7 @@ private struct HomeViewContent: View {
 
 private struct FlightList: View {
     var flights: [FlightUIModel]
+    var showLoadMore: Bool
     var onLoadMore: () -> Void
     
     var body: some View {
@@ -85,8 +93,10 @@ private struct FlightList: View {
                 }
                 .foregroundStyle(.primary)
             }
-            LoadingState()
-                .onAppear(perform: onLoadMore)
+            if showLoadMore {
+                LoadingState()
+                    .onAppear(perform: onLoadMore)
+            }
         }
         .navigationDestination(for: FlightUIModel.self) { flight in
             FlightDetailsView(flightId: flight.id)

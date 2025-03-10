@@ -49,16 +49,14 @@ final class HomeViewModel {
         observeFlightsByDay(day: date)
     }
     
-    func onSearch(query: String) {
-        switch _uiState {
-        case .normal(let data):
+    func onQueryChange(query: String) {
+        if let data = _uiState.normalDataOrNil() {
             let updatedWithQuery = data.flights.map { flight in
                 let newFlight = flight.copy(isQueried: compliesWithQuery(query: query, flight: flight))
                 return newFlight
             }
-            let newUiModel = FlightListUIModel(flights: updatedWithQuery, selectedDate: data.selectedDate)
+            let newUiModel = data.copy(flights: updatedWithQuery, searchQuery: query)
             _uiState = .normal(data: newUiModel)
-        default: break
         }
     }
 
@@ -70,14 +68,14 @@ final class HomeViewModel {
     }
 
     func onLoadMore() {
-        Task {
-            do {
-                if let data = _uiState.normalDataOrNil() {
+        if let data = _uiState.normalDataOrNil() {
+            Task {
+                do {
                     let date = data.flights.first?.date ?? Date.now
                     try fetchMoreFlights.execute(date: date)
+                } catch {
+                    onFetchMoreFlightsError()
                 }
-            } catch {
-                onFetchMoreFlightsError()
             }
         }
     }

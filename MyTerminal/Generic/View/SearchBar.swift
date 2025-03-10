@@ -9,7 +9,6 @@ import SwiftUI
 
 struct SearchBar: View {
     @Binding var value: String
-    var onChange: (String) -> Void
     
     var body: some View {
         TextField(text: $value) {
@@ -17,9 +16,6 @@ struct SearchBar: View {
         }
         .textFieldStyle(.plain)
         .autocorrectionDisabled()
-        .onChange(of: value, initial: false) { _, newValue in
-            onChange(newValue)
-        }
     }
 }
 
@@ -27,7 +23,7 @@ struct SearchBar_Previews: PreviewProvider {
     @State static var value = ""
     
     static var previews: some View {
-        SearchBar(value: $value, onChange: { _ in })
+        SearchBar(value: $value)
             .previewLayout(.sizeThatFits)
             .padding()
     }
