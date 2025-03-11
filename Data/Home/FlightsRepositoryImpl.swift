@@ -146,12 +146,16 @@ final class FlightsRepositoryImpl: FlightsRepository {
             do {
                 let response = try await api.retrieveDestination(iata: iata)
                 if let city = response.city {
+                    destinationsDatastore.storeDestination(iata: iata, value: city)
                     return city
                 } else if let publicName = response.publicName?.english {
+                    destinationsDatastore.storeDestination(iata: iata, value: publicName)
                     return publicName
                 } else if let country = response.country {
+                    destinationsDatastore.storeDestination(iata: iata, value: country)
                     return country
                 } else {
+                    destinationsDatastore.storeDestination(iata: iata, value: iata)
                     return iata
                 }
             } catch {
@@ -159,8 +163,6 @@ final class FlightsRepositoryImpl: FlightsRepository {
                 return iata
             }
         }()
-        
-        destinationsDatastore.storeDestination(iata: iata, value: destination)
         
         return destination
     }
