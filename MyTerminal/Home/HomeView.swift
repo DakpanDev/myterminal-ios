@@ -71,10 +71,12 @@ private struct HomeViewContent: View {
                         .onChange(of: selectedDate) {
                             onDateChange(selectedDate)
                         }
+                        .accessibilityIdentifier("datePicker")
                     }
                 }
                 .padding()
             }
+            .accessibilityIdentifier("scrollList")
         }
     }
 }
@@ -101,6 +103,7 @@ private struct FlightList: View {
         .navigationDestination(for: FlightUIModel.self) { flight in
             FlightDetailsView(flightId: flight.id)
         }
+        .accessibilityIdentifier("flightList")
     }
 }
 

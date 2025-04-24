@@ -13,11 +13,13 @@ struct MainScreen: View {
             HomeView()
                 .tabItem {
                     Label("Home", systemImage: "house")
+                        .accessibilityIdentifier("home")
                 }
 
             BookmarksView()
                 .tabItem {
                     Label("Bookmarks", systemImage: "list.clipboard")
+                        .accessibilityIdentifier("bookmarks")
                 }
         }
     }
