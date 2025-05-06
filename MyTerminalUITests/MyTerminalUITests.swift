@@ -12,12 +12,15 @@ final class MyTerminalUITests: XCTestCase {
     let options = XCTMeasureOptions()
     
     // Configuration
-    let n = 2
-    let metrics: [XCTMetric] = [
-        XCTApplicationLaunchMetric(),
-        XCTCPUMetric(),
-        XCTMemoryMetric(),
-    ]
+    let n = 1
+    var metrics: [XCTMetric] {
+        [
+            XCTApplicationLaunchMetric(),
+            XCTCPUMetric(application: app),
+            XCTMemoryMetric(application: app),
+            XCTClockMetric()
+        ]
+    }
 
     override func setUpWithError() throws {
         continueAfterFailure = false
@@ -29,7 +32,7 @@ final class MyTerminalUITests: XCTestCase {
         app.terminate()
     }
 
-    func testLoadFlights() throws {
+    func testA_LoadFlights() throws {
         measure(metrics: metrics, options: options) {
             app.launch()
             
@@ -39,7 +42,7 @@ final class MyTerminalUITests: XCTestCase {
             }
             
             app.datePickers["datePicker"].tap()
-            app.buttons["Monday, 14 April"].tap()
+            app.buttons["Saturday, 3 May"].tap()
             app.buttons["dismiss popup"].tap()
 
             for _ in 1...6 {
@@ -48,7 +51,7 @@ final class MyTerminalUITests: XCTestCase {
         }
     }
     
-    func testOpenDetails() throws {
+    func testB_OpenDetails() throws {
         measure(metrics: metrics, options: options) {
             app.launch()
             
@@ -60,7 +63,7 @@ final class MyTerminalUITests: XCTestCase {
         }
     }
     
-    func testBookmarkFlight() throws {
+    func testC_BookmarkFlight() throws {
         measure(metrics: metrics, options: options) {
             app.launch()
             
@@ -69,13 +72,15 @@ final class MyTerminalUITests: XCTestCase {
                 .element(boundBy: 0)
                 .tap()
             
+            sleep(1)
+            
             for _ in 1...10 {
-                app.images["Bookmark"].tap()
+                app.otherElements["bookmarkFlight"].tap()
             }
         }
     }
     
-    func testLoadBookmarks() throws {
+    func testD_LoadBookmarks() throws {
         measure(metrics: metrics, options: options) {
             app.launch()
             

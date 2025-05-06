@@ -28,6 +28,7 @@ struct FlightDetailsView: View {
                 viewModel.uiState.showIfNormal { data in
                     Image(systemName: data.isBookmarked ? "bookmark.fill" : "bookmark")
                         .onTapGesture(perform: viewModel.onBookmark)
+                        .accessibilityIdentifier("bookmarkFlight")
                 }
             }
         }
