@@ -12,13 +12,11 @@ final class MyTerminalUITests: XCTestCase {
     let options = XCTMeasureOptions()
     
     // Configuration
-    let n = 1
+    let n = 3
     var metrics: [XCTMetric] {
         [
-            XCTApplicationLaunchMetric(),
             XCTCPUMetric(application: app),
-            XCTMemoryMetric(application: app),
-            XCTClockMetric()
+            XCTMemoryMetric(application: app)
         ]
     }
 
